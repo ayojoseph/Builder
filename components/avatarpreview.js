@@ -9,17 +9,25 @@ const styles = StyleSheet.create({
     container: {
         width: WINWIDTH,
         height: WINHEIGHT* 0.4,
-        padding: 100
     },
+    img: {
+        transform:[{scale:(1)}],
+        height: '100%',
+        width: '100%',
+    }
 });
 
 
 const AvatarPreview = (props) => {
     return (
-        <View>
+        <View
+            style={styles.container}
+        >
             <Image
-                style={styles.container}
-                source={{url: props.url}}/>
+                style={styles.img}
+                source={{url: props.url}}
+                resizeMode="contain"
+            />
         </View>
     );
 };

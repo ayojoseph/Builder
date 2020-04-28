@@ -1,1 +1,18 @@
-This is the readme for this repo
+Welcome to builder 1.0!
+
+To run this project you will ned xcode, CocoaPods, Npm, and React-native installed.
+
+You will have to run 'npm install' to get all the node packages.
+
+Then 'cd ios' to get into the ios folder and 'pod install' to install the necessary pods.
+
+Then change back into the main directory (cd ..) and run 'npx react-native run-ios'.
+
+Should take around 5-10 minutes to build everything.
+
+Known Bugs:
+- pressing on tab titles don't work. User has to swipe to the next window.
+
+Improvements:
+- fixing tabview buttons
+- size of item icons

@@ -10,34 +10,11 @@ const styles = StyleSheet.create({
     scene: {
         flex: 1,
     },
-    container: {
-        width: 100,
-        height: 100,
-        resizeMode: 'stretch',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F59CFF',
-    },
     tabView: {
         flex: 1,
         padding: 1,
         alignItems: 'center',
         backgroundColor: 'rgba(0,0,0,0.01)',
-    },
-    card: {
-        borderWidth: 1,
-        backgroundColor: '#fff',
-        borderColor: 'rgba(0,0,0,0.1)',
-        margin: 5,
-        padding: 15,
-        shadowColor: '#ccc',
-        shadowOffset: {width: 2, height: 2},
-        shadowOpacity: 0.5,
-        shadowRadius: 3,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        alignItems: 'center',
     },
     img: {
         width: '33%',
@@ -56,37 +33,48 @@ const styles = StyleSheet.create({
         width: '33%',
         height: 120,
         resizeMode: 'stretch',
-        backgroundColor: '#5eff31',
+        borderWidth: 5,
+        borderColor: '#5eff31',
+        borderRadius: 25,
         aspectRatio: 1,
         margin: 5,
         padding: 1,
         shadowColor: '#ccc',
         shadowOffset: {width: 2, height: 2},
         shadowOpacity: 0.5,
-        shadowRadius: 3,
+        shadowRadius: 3
     },
 });
 
-const SelectionPane2 = (props) => {
-    const groups = props.groups;
+export default class SelectionPane2 extends React.Component{
+    constructor(props) {
+        super(props);
 
-    const tabNames = ['Glasses', 'Facial Hair', 'Hair', 'Hat', 'Top', 'Outer', 'Bottom', 'Socks', 'Shoes', 'Hands', 'Accessories', 'Special', 'Props'];
+    }
 
-    return (
-        <ScrollableTabView
-            initialPage={0}
-            renderTabBar={() => <ScrollableTabBar/>}
-        >
-            {tabNames.map((tab, index) => {
-                return (
-                    <View style={styles.tabView} tabLabel={tab}>
-                        <SelectedPage2 group={groups[index]} name={tab} num={index} updateFunc={props.updateFunc}/>
-                    </View>
-                );
 
-            })}
-        </ScrollableTabView>
-    );
+    render(){
+        const groups = this.props.groups;
+
+        const tabNames = ['Glasses', 'Facial Hair', 'Hair', 'Hat', 'Top', 'Outer', 'Bottom', 'Socks', 'Shoes', 'Hands', 'Accessories', 'Special', 'Props'];
+
+        return (
+            <ScrollableTabView
+                initialPage={0}
+                renderTabBar={() => <ScrollableTabBar/>}
+                // ref={(tabView)=> {this.tabView=tabView;}}
+            >
+                {tabNames.map((tab, index) => {
+                    return (
+                        <TouchableOpacity style={styles.tabView} tabLabel={tab} onPress={() => this.tabView.goToPage(index)}>
+                            <SelectedPage2 group={groups[index]} name={tab} num={index} updateFunc={this.props.updateFunc}/>
+                        </TouchableOpacity>
+                    );
+                })}
+            </ScrollableTabView>
+        );
+    }
+
 
 };
 
@@ -115,8 +103,9 @@ const ListItem = (props) => {
     let {
         item, imglink, group, highlighted, index, selectedFunc, updateFunc,
     } = props;
+    const block = 'https://cdn3.iconfinder.com/data/icons/block/32/block-512.png';
     let imgUrl = imglink + item.groupId;
-
+    let uu = item.groupId === 'empty' ? block : imglink + item.groupId;
     const updateAvatar = (group, id) => {
         if (group === 'Facial Hair') {
             group = 'facial%20hair';
@@ -135,14 +124,15 @@ const ListItem = (props) => {
             <View>
                 <Image
                     style={highlighted == index ? styles.selected : styles.img}
-                    source={{url: imgUrl}}
+                    source={{url: uu}}
+                    resizeMode="stretch"
                 />
             </View>
         </TouchableOpacity>
     );
 };
 
-export default SelectionPane2;
+// export default SelectionPane2;
 
 
 

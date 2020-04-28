@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-
 import SelectionPane2 from './components/selectionpane';
 import axios from 'axios';
 import {
